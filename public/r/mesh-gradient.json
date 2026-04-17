@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "mesh-gradient",
+  "title": "Mesh Gradient",
+  "description": "Modern mesh-style gradient with smooth purple and pink transitions. Perfect for SaaS and modern web applications.",
+  "type": "registry:ui",
+  "category": "gradients",
+  "files": [
+    {
+      "path": "mesh-gradient.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { GrainGradient } from \"@paper-design/shaders-react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface MeshGradientProps {\n  children?: React.ReactNode;\n  className?: string;\n  speed?: number;\n  intensity?: number;\n}\n\nexport default function MeshGradient({\n  children,\n  className,\n  speed = 0.17,\n  intensity = 0.16,\n}: MeshGradientProps) {\n  const [ready, setReady] = useState(false);\n\n  useEffect(() => {\n    const frame = requestAnimationFrame(() => setReady(true));\n    return () => cancelAnimationFrame(frame);\n  }, []);\n\n  return (\n    <div\n      className={cn(\"relative overflow-hidden\", className)}\n      style={{ position: \"relative\" }}\n    >\n      {ready && (\n        <GrainGradient\n          colors={[\"#9F8EEC\", \"#E879A8\", \"#6696EA\"]}\n          colorBack=\"#00000000\"\n          speed={speed}\n          scale={0.57}\n          rotation={-143}\n          offsetX={0.2}\n          offsetY={-0.27}\n          softness={0.67}\n          intensity={intensity}\n          noise={0.21}\n          shape=\"wave\"\n          style={{\n            position: \"absolute\",\n            top: 0,\n            left: 0,\n            width: \"100%\",\n            height: \"100%\",\n            zIndex: 0,\n          }}\n        />\n      )}\n      <div style={{ position: \"relative\", zIndex: 1 }}>{children}</div>\n    </div>\n  );\n}",
+      "type": "registry:file",
+      "target": "components/shaders/mesh-gradient.tsx"
+    }
+  ],
+  "dependencies": [
+    "@paper-design/shaders-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "tailwind": {
+    "config": {}
+  }
+}

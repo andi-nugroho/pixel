@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "glitch-wave",
+  "title": "Glitch Wave",
+  "description": "Digital distortion-style shader with bold red and dark accents. Great for edgy, modern designs.",
+  "type": "registry:ui",
+  "category": "effects",
+  "files": [
+    {
+      "path": "glitch-wave.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { GrainGradient } from \"@paper-design/shaders-react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface GlitchWaveProps {\n  children?: React.ReactNode;\n  className?: string;\n  speed?: number;\n  intensity?: number;\n}\n\nexport default function GlitchWave({\n  children,\n  className,\n  speed = 0.18,\n  intensity = 0.22,\n}: GlitchWaveProps) {\n  const [ready, setReady] = useState(false);\n\n  useEffect(() => {\n    const frame = requestAnimationFrame(() => setReady(true));\n    return () => cancelAnimationFrame(frame);\n  }, []);\n\n  return (\n    <div\n      className={cn(\"relative overflow-hidden\", className)}\n      style={{ position: \"relative\" }}\n    >\n      {ready && (\n        <GrainGradient\n          colors={[\"#EF4444\", \"#DC2626\", \"#1C1917\"]}\n          colorBack=\"#0A0000\"\n          speed={speed}\n          scale={0.42}\n          rotation={-45}\n          offsetX={0.3}\n          offsetY={0.1}\n          softness={0.45}\n          intensity={intensity}\n          noise={0.3}\n          shape=\"wave\"\n          style={{\n            position: \"absolute\",\n            top: 0,\n            left: 0,\n            width: \"100%\",\n            height: \"100%\",\n            zIndex: 0,\n          }}\n        />\n      )}\n      <div style={{ position: \"relative\", zIndex: 1 }}>{children}</div>\n    </div>\n  );\n}",
+      "type": "registry:file",
+      "target": "components/shaders/glitch-wave.tsx"
+    }
+  ],
+  "dependencies": [
+    "@paper-design/shaders-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "tailwind": {
+    "config": {}
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cosmic-dust",
+  "title": "Cosmic Dust",
+  "description": "Deep space-themed shader with dark purple and starlight accents. Ideal for dark-themed applications.",
+  "type": "registry:ui",
+  "category": "decorative",
+  "files": [
+    {
+      "path": "cosmic-dust.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { GrainGradient } from \"@paper-design/shaders-react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface CosmicDustProps {\n  children?: React.ReactNode;\n  className?: string;\n  speed?: number;\n  intensity?: number;\n}\n\nexport default function CosmicDust({\n  children,\n  className,\n  speed = 0.08,\n  intensity = 0.25,\n}: CosmicDustProps) {\n  const [ready, setReady] = useState(false);\n\n  useEffect(() => {\n    const frame = requestAnimationFrame(() => setReady(true));\n    return () => cancelAnimationFrame(frame);\n  }, []);\n\n  return (\n    <div\n      className={cn(\"relative overflow-hidden\", className)}\n      style={{ position: \"relative\" }}\n    >\n      {ready && (\n        <GrainGradient\n          colors={[\"#1A0533\", \"#6B21A8\", \"#C084FC\"]}\n          colorBack=\"#0A001A\"\n          speed={speed}\n          scale={0.5}\n          rotation={60}\n          offsetX={-0.2}\n          offsetY={0.15}\n          softness={0.55}\n          intensity={intensity}\n          noise={0.28}\n          shape=\"wave\"\n          style={{\n            position: \"absolute\",\n            top: 0,\n            left: 0,\n            width: \"100%\",\n            height: \"100%\",\n            zIndex: 0,\n          }}\n        />\n      )}\n      <div style={{ position: \"relative\", zIndex: 1 }}>{children}</div>\n    </div>\n  );\n}",
+      "type": "registry:file",
+      "target": "components/shaders/cosmic-dust.tsx"
+    }
+  ],
+  "dependencies": [
+    "@paper-design/shaders-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "tailwind": {
+    "config": {}
+  }
+}

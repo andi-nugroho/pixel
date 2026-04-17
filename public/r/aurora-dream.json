@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aurora-dream",
+  "title": "Aurora Dream",
+  "description": "Vibrant multicolor aurora borealis effect with flowing gradients. Great for creative and artistic projects.",
+  "type": "registry:ui",
+  "category": "gradients",
+  "files": [
+    {
+      "path": "aurora-dream.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { GrainGradient } from \"@paper-design/shaders-react\";\nimport { cn } from \"@/lib/utils\";\n\ninterface AuroraDreamProps {\n  children?: React.ReactNode;\n  className?: string;\n  speed?: number;\n  intensity?: number;\n}\n\nexport default function AuroraDream({\n  children,\n  className,\n  speed = 0.1,\n  intensity = 0.22,\n}: AuroraDreamProps) {\n  const [ready, setReady] = useState(false);\n\n  useEffect(() => {\n    const frame = requestAnimationFrame(() => setReady(true));\n    return () => cancelAnimationFrame(frame);\n  }, []);\n\n  return (\n    <div\n      className={cn(\"relative overflow-hidden\", className)}\n      style={{ position: \"relative\" }}\n    >\n      {ready && (\n        <GrainGradient\n          colors={[\"#00FF88\", \"#7B2FFF\", \"#00BBFF\"]}\n          colorBack=\"#00000000\"\n          speed={speed}\n          scale={0.65}\n          rotation={-90}\n          offsetX={0.15}\n          offsetY={0.1}\n          softness={0.6}\n          intensity={intensity}\n          noise={0.24}\n          shape=\"wave\"\n          style={{\n            position: \"absolute\",\n            top: 0,\n            left: 0,\n            width: \"100%\",\n            height: \"100%\",\n            zIndex: 0,\n          }}\n        />\n      )}\n      <div style={{ position: \"relative\", zIndex: 1 }}>{children}</div>\n    </div>\n  );\n}",
+      "type": "registry:file",
+      "target": "components/shaders/aurora-dream.tsx"
+    }
+  ],
+  "dependencies": [
+    "@paper-design/shaders-react"
+  ],
+  "devDependencies": [],
+  "registryDependencies": [],
+  "tailwind": {
+    "config": {}
+  }
+}
